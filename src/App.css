@@ -1,0 +1,19 @@
+.custom-signup-container {
+  min-height: 100vh;
+}
+
+.custom-primary-btn {
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 3px;
+  padding: 10px 48px;
+  border-radius: 9px;
+}
+
+.custom-secondary-btn {
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 2px;
+  padding: 8px 24px;
+  border-radius: 9px;
+}
