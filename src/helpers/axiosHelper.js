@@ -13,6 +13,7 @@ export const getRefreshJWT = () => {
 
 export const axiosProcessor = async (obj) => {
   const { isPrivate, refreshToken } = obj;
+
   if (isPrivate) {
     obj.headers = {
       Authorization: refreshToken ? getRefreshJWT() : getAccessJWT(),
@@ -23,6 +24,15 @@ export const axiosProcessor = async (obj) => {
     const response = await axios(obj);
     return response.data;
   } catch (error) {
+    if (error.response?.data?.message.includes("jwt expired")) {
+      const { accessJWT } = await getNewAccessJWT();
+
+      if (accessJWT) {
+        sessionStorage.setItem("accessJWT", accessJWT);
+        return axiosProcessor(obj);
+      }
+    }
+
     return {
       status: "error",
       message: error.message,
@@ -61,7 +71,7 @@ export const getUser = () => {
 export const getNewAccessJWT = () => {
   return axiosProcessor({
     method: "get",
-    url: userAPI + "/get-accessJWT",
+    url: userAPI + "/get-accessjwt",
     isPrivate: true,
     refreshToken: true,
   });

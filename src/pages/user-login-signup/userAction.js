@@ -17,10 +17,10 @@ export const autoLogin = () => async (dispatch) => {
 
   if (!accessJWT && refreshJWT) {
     // get new access jwt
-    const response = await getNewAccessJWT();
+    const token = await getNewAccessJWT();
 
-    if (response?.accessJWT) {
-      sessionStorage.setItem("accessJWT", response.accessJWT);
+    if (token?.accessJWT) {
+      sessionStorage.setItem("accessJWT", token.accessJWT);
       dispatch(postLoginUserAction());
     }
   }

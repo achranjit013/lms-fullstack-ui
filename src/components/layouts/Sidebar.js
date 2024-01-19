@@ -7,17 +7,18 @@ import {
   MdLibraryBooks,
   MdOutlineLibraryBooks,
   MdReviews,
-  MdCreateNewFolder,
 } from "react-icons/md";
 import { ImProfile } from "react-icons/im";
 import { PiStudentBold } from "react-icons/pi";
 import { IoCreateOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
+  const { user } = useSelector((state) => state.userInfo);
   return (
     <div className="bg-dark text-light vh-100">
       <div className="d-flex align-items-center justify-content-center custom-side-heading">
-        <h5>ADMIN</h5>
+        <h5>Hello, {user?.fname} !</h5>
       </div>
 
       <hr />
@@ -34,27 +35,33 @@ const Sidebar = () => {
           <MdLibraryBooks />
           Books
         </Link>
-        <Link
-          className="nav-link d-flex align-items-center gap-1"
-          to="/reviews"
-        >
-          <MdReviews />
-          Reviews
-        </Link>
-        <Link
-          className="nav-link d-flex align-items-center gap-1"
-          to="/students"
-        >
-          <PiStudentBold />
-          Students
-        </Link>
-        <Link
-          className="nav-link d-flex align-items-center gap-1"
-          to="/burrow-history"
-        >
-          <MdWorkHistory />
-          Burrow History
-        </Link>
+
+        {user?.role === "admin" && (
+          <>
+            <Link
+              className="nav-link d-flex align-items-center gap-1"
+              to="/reviews"
+            >
+              <MdReviews />
+              Reviews
+            </Link>
+            <Link
+              className="nav-link d-flex align-items-center gap-1"
+              to="/students"
+            >
+              <PiStudentBold />
+              Students
+            </Link>
+            <Link
+              className="nav-link d-flex align-items-center gap-1"
+              to="/burrow-history"
+            >
+              <MdWorkHistory />
+              Burrow History
+            </Link>
+          </>
+        )}
+
         <Link
           className="nav-link d-flex align-items-center gap-1"
           to="/my-books"
@@ -74,13 +81,16 @@ const Sidebar = () => {
           <ImProfile />
           Profile
         </Link>
-        <Link
-          className="nav-link d-flex align-items-center gap-1"
-          to="/profile"
-        >
-          <IoCreateOutline />
-          Create New Admin
-        </Link>
+
+        {user?.role === "admin" && (
+          <Link
+            className="nav-link d-flex align-items-center gap-1"
+            to="/admin-signup"
+          >
+            <IoCreateOutline />
+            Create New Admin
+          </Link>
+        )}
       </Navbar>
     </div>
   );

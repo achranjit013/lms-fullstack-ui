@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import CustomInput from "../../components/custom-inputs/CustomInput";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../helpers/axiosHelper";
 import { autoLogin, postLoginUserAction } from "./userAction";
 
 const Login = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailRef = useRef("");
@@ -16,8 +17,10 @@ const Login = () => {
 
   const { user } = useSelector((state) => state.userInfo);
 
+  const fromLocation = location?.state?.from?.pathname || "/dashboard";
+
   useEffect(() => {
-    user?._id && navigate("/dashboard");
+    user?._id && navigate(fromLocation);
     !user?._id && dispatch(autoLogin());
   }, [user?._id, navigate, dispatch]);
 

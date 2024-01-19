@@ -6,6 +6,10 @@ import Signup from "./pages/user-login-signup/Signup";
 import AdminSignup from "./pages/admin-signup/AdminSignup";
 import { ToastContainer } from "react-toastify";
 import Dashboard from "./pages/dashboard/Dashboard";
+import {
+  AdminPrivateRouter,
+  UserPrivateRouter,
+} from "./components/private-router/PrivateRouter";
 
 function App() {
   return (
@@ -17,8 +21,22 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
         {/* private routes */}
-        <Route path="/admin-signup" element={<AdminSignup />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/admin-signup"
+          element={
+            <AdminPrivateRouter>
+              <AdminSignup />
+            </AdminPrivateRouter>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <UserPrivateRouter>
+              <Dashboard />
+            </UserPrivateRouter>
+          }
+        />
       </Routes>
 
       <ToastContainer
