@@ -17,3 +17,27 @@
   padding: 8px 24px;
   border-radius: 9px;
 }
+
+.custom-navbar {
+  height: 6rem;
+}
+
+.custom-lib-logo {
+  border-radius: 100%;
+}
+
+.main-body {
+  height: calc(100vh - 13rem);
+}
+
+.custom-footer {
+  height: 6rem;
+}
+
+.custom-user-layout {
+  grid-template-columns: 205px 1fr;
+}
+
+.custom-side-heading {
+  height: 4.9rem;
+}

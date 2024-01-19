@@ -122,7 +122,7 @@ const AdminSignup = () => {
   return (
     <Container
       fluid
-      className="d-flex justify-content-center p-3 custom-signup-container"
+      className="d-flex justify-content-center align-items-center p-3 custom-signup-container"
     >
       <Row className="d-flex align-items-center">
         <Col md={true}>
@@ -149,7 +149,7 @@ const AdminSignup = () => {
             <hr />
 
             {inputs.map((item, i) => (
-              <CustomInput {...item} onChange={handleOnChange} />
+              <CustomInput {...item} onChange={handleOnChange} key={i} />
             ))}
 
             <Button
@@ -157,19 +157,18 @@ const AdminSignup = () => {
               type="submit"
               className="custom-primary-btn"
             >
-              Signup
+              Create Account
             </Button>
           </Form>
 
-          <Link
-            to="/login"
-            className="nav-link rounded shadow-lg p-3 mt-3 text-end"
-          >
+          <p className="nav-link rounded shadow-lg p-3 mt-3 text-end">
             Already a member ?{" "}
-            <Button variant="warning" className="custom-secondary-btn">
-              Login
-            </Button>
-          </Link>
+            <Link to="/admin-signup">
+              <Button variant="warning" className="custom-secondary-btn">
+                Login
+              </Button>
+            </Link>
+          </p>
         </Col>
       </Row>
     </Container>
