@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 const UserLayout = ({ children, title }) => {
   return (
     <div className="d-grid custom-user-layout">
-      <div>
+      <div className="bg-dark text-light vh-100 d-none d-md-block">
         <Sidebar />
       </div>
       <div>

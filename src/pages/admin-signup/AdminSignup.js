@@ -4,6 +4,7 @@ import CustomInput from "../../components/custom-inputs/CustomInput";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createAdmin } from "../../helpers/axiosHelper";
+import UserLayout from "../../components/layouts/UserLayout";
 
 const initialFormState = {
   fname: "",
@@ -17,7 +18,6 @@ const initialFormState = {
 
 const AdminSignup = () => {
   const [form, setForm] = useState(initialFormState);
-  const [display, setDisplay] = useState({});
 
   const inputs = [
     {
@@ -77,8 +77,6 @@ const AdminSignup = () => {
   ];
 
   const handleOnChange = (e) => {
-    setDisplay({});
-
     const { name, value } = e.target;
 
     setForm({
@@ -108,10 +106,7 @@ const AdminSignup = () => {
 
     const { status, message } = await pending;
 
-    setDisplay({
-      status,
-      message,
-    });
+    toast[status](message);
 
     if (status === "success") {
       // clear the form input fields
@@ -120,58 +115,17 @@ const AdminSignup = () => {
   };
 
   return (
-    <Container
-      fluid
-      className="d-flex justify-content-center align-items-center p-3 custom-signup-container"
-    >
-      <Row className="d-flex align-items-center">
-        <Col md={true}>
-          {display.message && (
-            <Alert
-              variant={display.status === "success" ? "success" : "danger"}
-            >
-              {display.message}
-            </Alert>
-          )}
+    <UserLayout title="Create new admin!">
+      <Form className="rounded shadow-lg p-3" onSubmit={handleOnSubmit}>
+        {inputs.map((item, i) => (
+          <CustomInput {...item} onChange={handleOnChange} key={i} />
+        ))}
 
-          <p className="rounded shadow-lg text-center p-3">
-            Welcome to our Library Management System!
-            <br />
-            Empowering you to seamlessly organize, access, and explore a world
-            of knowledge. Happy reading and managing!
-          </p>
-        </Col>
-        <Col md={true}>
-          <Form className="rounded shadow-lg p-3" onSubmit={handleOnSubmit}>
-            <h3>
-              New here . . . ? <br /> Please create your new admin account!
-            </h3>
-            <hr />
-
-            {inputs.map((item, i) => (
-              <CustomInput {...item} onChange={handleOnChange} key={i} />
-            ))}
-
-            <Button
-              variant="success"
-              type="submit"
-              className="custom-primary-btn"
-            >
-              Create Account
-            </Button>
-          </Form>
-
-          <p className="nav-link rounded shadow-lg p-3 mt-3 text-end">
-            Already a member ?{" "}
-            <Link to="/admin-signup">
-              <Button variant="warning" className="custom-secondary-btn">
-                Login
-              </Button>
-            </Link>
-          </p>
-        </Col>
-      </Row>
-    </Container>
+        <Button variant="success" type="submit" className="custom-primary-btn">
+          Create Account
+        </Button>
+      </Form>
+    </UserLayout>
   );
 };
 
