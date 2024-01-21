@@ -4,7 +4,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import CustomInput from "../../components/custom-inputs/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
-import { getSelectedBookAction } from "./bookAction";
+import {
+  deleteBookAction,
+  getSelectedBookAction,
+  updateBookAction,
+} from "./bookAction";
 
 const EditBook = () => {
   const dispatch = useDispatch();
@@ -12,10 +16,8 @@ const EditBook = () => {
   const navigate = useNavigate();
 
   const { _id } = useParams();
-  console.log(_id);
 
   const { selectedBook } = useSelector((state) => state.bookInfo);
-  console.log(selectedBook);
 
   useEffect(() => {
     if (_id !== form._id) {
@@ -24,7 +26,6 @@ const EditBook = () => {
       setForm(selectedBook);
     }
   }, [_id, dispatch, form._id, selectedBook]);
-  console.log(form);
 
   const inputs = [
     {
@@ -66,6 +67,7 @@ const EditBook = () => {
       type: "text",
       required: true,
       value: form.isbn,
+      disabled: true,
     },
     {
       label: "Description",
@@ -79,9 +81,46 @@ const EditBook = () => {
     },
   ];
 
-  const handleOnDelete = () => {};
-  const handleOnSubmit = (e) => {};
-  const handleOnChange = (e) => {};
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleOnUpdate = async (e) => {
+    e.preventDefault();
+
+    const { __v, updatedAt, isbn, createdAt, ...rest } = form;
+
+    if (
+      !window.confirm(`Are you sure to update ${rest.name} by ${rest.author}`)
+    ) {
+      return;
+    }
+
+    const { status } = await dispatch(updateBookAction(rest));
+
+    if (status === "success") {
+      navigate("/books");
+    }
+  };
+
+  const handleOnDelete = async () => {
+    const { name, author } = form;
+
+    if (!window.confirm(`Are you sure to delete ${name} by ${author}`)) {
+      return;
+    }
+
+    const { status } = await dispatch(deleteBookAction(_id));
+
+    if (status === "success") {
+      navigate("/books");
+    }
+  };
 
   return (
     <UserLayout title="Edit book details">
@@ -97,7 +136,7 @@ const EditBook = () => {
 
       <Form
         className="form-center border rounded shadow-lg p-3 my-3"
-        onSubmit={handleOnSubmit}
+        onSubmit={handleOnUpdate}
       >
         <Form.Group className="mb-3">
           <Form.Label>Status</Form.Label>

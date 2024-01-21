@@ -96,3 +96,21 @@ export const getAllBook = (_id) => {
     isPrivate: true,
   });
 };
+
+// update a book
+export const updateBook = (data) => {
+  return axiosProcessor({
+    method: "put",
+    url: bookAPI,
+    data,
+    isPrivate: true,
+  });
+};
+// update a book
+export const deleteBook = (_id) => {
+  return axiosProcessor({
+    method: "delete",
+    url: bookAPI + "/" + _id,
+    isPrivate: true,
+  });
+};
