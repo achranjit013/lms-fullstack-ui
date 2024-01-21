@@ -2,6 +2,7 @@ import axios from "axios";
 
 const rootAPI = process.env.REACT_APP_ROOTAPI;
 const userAPI = rootAPI + "/users";
+const bookAPI = rootAPI + "/books";
 
 export const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
@@ -74,5 +75,24 @@ export const getNewAccessJWT = () => {
     url: userAPI + "/get-accessjwt",
     isPrivate: true,
     refreshToken: true,
+  });
+};
+
+// create/add new book
+export const createBook = (data) => {
+  return axiosProcessor({
+    method: "post",
+    url: bookAPI,
+    data,
+    isPrivate: true,
+  });
+};
+
+// get all books
+export const getAllBook = (_id) => {
+  return axiosProcessor({
+    method: "get",
+    url: _id ? bookAPI + "/" + _id : bookAPI,
+    isPrivate: true,
   });
 };

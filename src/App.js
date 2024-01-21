@@ -10,6 +10,9 @@ import {
   AdminPrivateRouter,
   UserPrivateRouter,
 } from "./components/private-router/PrivateRouter";
+import Book from "./pages/book/Book";
+import NewBook from "./pages/book/NewBook";
+import EditBook from "./pages/book/EditBook";
 
 function App() {
   return (
@@ -35,6 +38,30 @@ function App() {
             <UserPrivateRouter>
               <Dashboard />
             </UserPrivateRouter>
+          }
+        />
+        <Route
+          path="/books"
+          element={
+            <AdminPrivateRouter>
+              <Book />
+            </AdminPrivateRouter>
+          }
+        />
+        <Route
+          path="/new-book"
+          element={
+            <AdminPrivateRouter>
+              <NewBook />
+            </AdminPrivateRouter>
+          }
+        />
+        <Route
+          path="/edit-book/:_id"
+          element={
+            <AdminPrivateRouter>
+              <EditBook />
+            </AdminPrivateRouter>
           }
         />
       </Routes>

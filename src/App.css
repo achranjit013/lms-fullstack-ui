@@ -26,16 +26,22 @@
   border-radius: 100%;
 }
 
+.custom-user-layout {
+  grid-template-columns: 205px 1fr;
+}
+
 .main-body {
   height: calc(100vh - 12rem);
+  overflow-y: scroll;
+}
+
+.custom-table {
+  max-width: 96vw;
+  overflow-x: scroll;
 }
 
 .custom-footer {
   height: 6rem;
-}
-
-.custom-user-layout {
-  grid-template-columns: 205px 1fr;
 }
 
 .custom-side-heading {

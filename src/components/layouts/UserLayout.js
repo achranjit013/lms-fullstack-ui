@@ -12,8 +12,9 @@ const UserLayout = ({ children, title }) => {
       <div>
         <Header />
 
-        <main className="main-body container-fluid">
+        <main className="main-body container-fluid py-3">
           <h2>{title}</h2>
+
           <hr />
 
           <div>{children}</div>
