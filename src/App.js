@@ -13,6 +13,7 @@ import {
 import Book from "./pages/book/Book";
 import NewBook from "./pages/book/NewBook";
 import EditBook from "./pages/book/EditBook";
+import Student from "./pages/student/Student";
 
 function App() {
   return (
@@ -61,6 +62,14 @@ function App() {
           element={
             <AdminPrivateRouter>
               <EditBook />
+            </AdminPrivateRouter>
+          }
+        />
+        <Route
+          path="/students"
+          element={
+            <AdminPrivateRouter>
+              <Student />
             </AdminPrivateRouter>
           }
         />

@@ -1,14 +1,16 @@
 import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import libraryLogo from "../../assets/library-logo-bg.png";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "./Sidebar";
 import { FaHome } from "react-icons/fa";
 import { BiSolidLogIn, BiSolidLogOut } from "react-icons/bi";
 import { SiGnuprivacyguard } from "react-icons/si";
 import { MdDashboard } from "react-icons/md";
+import { logoutUserAction } from "../../pages/user-login-signup/userAction";
 
 const Header = ({ mainLayout }) => {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInfo);
 
   return (
@@ -61,6 +63,7 @@ const Header = ({ mainLayout }) => {
                   <Link
                     to="/"
                     className="nav-link d-flex align-items-center gap-1 px-4"
+                    onClick={() => dispatch(logoutUserAction(user?.email))}
                   >
                     <BiSolidLogOut />
                     Logout
@@ -72,13 +75,13 @@ const Header = ({ mainLayout }) => {
               ) : (
                 <>
                   <Link
-                    to="/"
+                    to="/login"
                     className="nav-link d-flex align-items-center gap-1"
                   >
                     <BiSolidLogIn /> Login
                   </Link>
                   <Link
-                    to="/"
+                    to="/signup"
                     className="nav-link d-flex align-items-center gap-1"
                   >
                     <SiGnuprivacyguard /> Signup

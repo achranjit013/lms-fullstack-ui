@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../helpers/axiosHelper";
 import { autoLogin, postLoginUserAction } from "./userAction";
+import MainLayout from "../../components/layouts/MainLayout";
 
 const Login = () => {
   const location = useLocation();
@@ -124,7 +125,7 @@ const Login = () => {
 
           <p className="nav-link rounded shadow-lg p-3 mt-3 text-end">
             Not a member ?{" "}
-            <Link to="/admin-signup">
+            <Link to="/signup">
               <Button variant="warning" className="custom-secondary-btn">
                 Create Account
               </Button>

@@ -1,4 +1,10 @@
-import { getNewAccessJWT, getUser } from "../../helpers/axiosHelper";
+import {
+  getNewAccessJWT,
+  getUser,
+  logoutUser,
+} from "../../helpers/axiosHelper";
+import { setBooks, setSelectedBook } from "../book/bookSlice";
+import { setStudents } from "../student/studentSlice";
 import { setUser } from "./userSlice";
 
 export const postLoginUserAction = () => async (dispatch) => {
@@ -26,4 +32,21 @@ export const autoLogin = () => async (dispatch) => {
   }
 
   dispatch(postLoginUserAction());
+};
+
+export const logoutUserAction = (email) => async (dispatch) => {
+  const accessJWT = sessionStorage.getItem("accessJWT");
+
+  // clear the store
+  dispatch(setUser({}));
+  dispatch(setBooks([]));
+  dispatch(setSelectedBook({}));
+  dispatch(setStudents([]));
+
+  // clear the browser storage
+  sessionStorage.removeItem("accessJWT");
+  localStorage.removeItem("refreshJWT");
+
+  // logout user & remove both jwts from db
+  await logoutUser(email, accessJWT);
 };

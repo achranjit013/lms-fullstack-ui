@@ -3,6 +3,7 @@ import axios from "axios";
 const rootAPI = process.env.REACT_APP_ROOTAPI;
 const userAPI = rootAPI + "/users";
 const bookAPI = rootAPI + "/books";
+// const bookAPI = rootAPI + "/books";
 
 export const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
@@ -50,11 +51,29 @@ export const createAdmin = (data) => {
   });
 };
 
+// create new admin
+export const createStudent = (data) => {
+  return axiosProcessor({
+    method: "post",
+    url: userAPI,
+    data,
+  });
+};
+
 // login user
 export const loginUser = (data) => {
   return axiosProcessor({
     method: "post",
     url: userAPI + "/login",
+    data,
+  });
+};
+
+// logout user
+export const logoutUser = async (data) => {
+  return axiosProcessor({
+    method: "post",
+    url: userAPI + "/logout",
     data,
   });
 };
@@ -111,6 +130,15 @@ export const deleteBook = (_id) => {
   return axiosProcessor({
     method: "delete",
     url: bookAPI + "/" + _id,
+    isPrivate: true,
+  });
+};
+
+// get all students
+export const getAllStudent = () => {
+  return axiosProcessor({
+    method: "get",
+    url: userAPI + "/student-list",
     isPrivate: true,
   });
 };
